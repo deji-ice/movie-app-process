@@ -6,7 +6,7 @@ const MovieCard = ({ movie }) => {
   console.log(movie);
   return (
     <Link
-      to={`/movie/${movie.id}`}
+      to={movie?.media_type === "movie" ? `/movie/${movie.id}` : `/tv/${movie.id}`}
       className="flex flex-col gap-4 hover:cursor-pointer bg-slate-100/10 p-5 rounded-lg"
     >
       <img
