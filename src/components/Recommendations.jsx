@@ -27,10 +27,10 @@ const Recommendations = ({ id, tvPath }) => {
   }, [tvPath, id]);
 
   return (
-    <div className="bg-slate-800/60 mt-40 w-screen p-10 ">
-      <h2 className="text-2xl font-semibold">Recommended Watches</h2>
+    <div className="bg-slate-800/60 mt-16 w-screen p-14 ">
+      <h2 className="text-3xl font-semibold">Recommended Watches</h2>
 
-      <div className="grid grid-cols-5 mt-10 gap-4">
+      <div className="grid grid-cols-5 mt-10 gap-5">
         {recommendations?.map((recommendation) => (
           <MovieCard
             key={recommendation.id}
