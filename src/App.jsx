@@ -8,7 +8,7 @@ import SideBar from "./components/SideBar";
 
 const App = () => {
   return (
-    <div className="text-[#e2e2e2] bg h-full flex flex-col ">
+    <div className="text-[#e2e2e2] bg h-full flex flex-col m-0 ">
       <Header />
       <div className="flex">
         <Routes>
@@ -18,7 +18,6 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-
       <Footer />
     </div>
   );
