@@ -1,25 +1,36 @@
 /* eslint-disable react/prop-types */
 
 import { Link } from "react-router-dom";
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const MovieCard = ({ movie, loading }) => {
-  console.log(movie);
   return (
     <>
       {loading ? (
-        <Skeleton containerClassName="animate-pulse h-64 bg-slate-800 rounded-lg" />
+        [1, 2, 3, 5, 6, 7, 8, 9, 10]?.map((item) => (
+          <div
+            key={item}
+            className="flex flex-col gap-4 hover:cursor-pointer  bg-slate-100/10 p-5 rounded-lg"
+          >
+            <SkeletonTheme key={item} baseColor="#202020" highlightColor="#444">
+              <Skeleton height={250} width={200} count={1} />
+              <Skeleton height={20} width={200} count={1} />
+            </SkeletonTheme>
+          </div>
+        ))
       ) : (
         <Link
           to={
-            movie?.media_type === "movie"
-              ? `/movie/${movie.id}`
-              : `/tv/${movie.id}`
+            !movie
+              ? "/"
+              : movie?.media_type === "movie"
+              ? `/movie/${movie?.id}`
+              : `/tv/${movie?.id}`
           }
-          className="flex flex-col gap-4 hover:cursor-pointer bg-slate-100/10 p-5 rounded-lg"
+          className="flex flex-col gap-4 hover:cursor-pointer  bg-slate-100/10 p-5 rounded-lg"
         >
           <img
-            src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             className="h-64 rounded-xl"
             alt=""
           />
