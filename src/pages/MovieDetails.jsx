@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { options } from "../services/omdbApi";
 import { FaPlay, FaPlayCircle, FaYoutube } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import Recommendations from "../components/Recommendations";
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -130,9 +131,7 @@ const MovieDetails = () => {
         </div>
       </div>
 
-      <div className="bg-red-700 mt-40 w-screen px-10 ">
-        <h2 className="text-2xl font-se\">Recommended watches</h2>
-      </div>
+      <Recommendations id={id} tvPath={tvPath} />
     </div>
   );
 };
