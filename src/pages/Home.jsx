@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import TrendingMovieCard from "../components/TrendingMovieCard";
-import { trendingMoviesData } from "../data/data";
-import { fetchAllMovies, options } from "../services/omdbApi";
+import TrendingMovieCardSkeleton from "../components/TrendingMovieCardSkeleton";
+import { options } from "../services/omdbApi";
 import MovieCard from "../components/MovieCard";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [trendingLoading, setTrendingLoading] = useState(false);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -14,6 +17,7 @@ const Home = () => {
     const moviesUrl = `https://api.themoviedb.org/3/trending/all/week?language=en-US`;
 
     const fetchTrendingMovies = async () => {
+      setTrendingLoading(true);
       try {
         const response = await axios.get(trendingMoviesUrl, options);
         console.log(response.data.results);
@@ -21,8 +25,10 @@ const Home = () => {
       } catch (error) {
         console.error(error);
       }
+      setTrendingLoading(false);
     };
     const fetchAllMovies = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(moviesUrl, options);
         console.log(response.data.results);
@@ -30,6 +36,7 @@ const Home = () => {
       } catch (error) {
         console.error(error);
       }
+      setLoading(false);
     };
     fetchAllMovies();
     fetchTrendingMovies(); // Call the fetch function to get the data
@@ -58,27 +65,31 @@ const Home = () => {
         className="w-full overflow-x-hidden scroll-smooth mt-5 "
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        <div
-          className="flex justify-around w-fit gap-20 drop-shadow-xl px-10"
-          onWheel={(e) => e.preventDefault()}
-          onScroll={(e) => e.preventDefault()}
-          onTouchMove={(e) => e.preventDefault()}
-        >
-          {trendingMovies?.map((movie) => (
-            <TrendingMovieCard
-              key={movie.id}
-              movie={movie}
-              handleScroll={handleScroll}
-            />
-          ))}
-        </div>
+        {trendingLoading ? (
+          <TrendingMovieCardSkeleton />
+        ) : (
+          <div
+            className="flex justify-around w-fit gap-20 drop-shadow-xl px-10"
+            onWheel={(e) => e.preventDefault()}
+            onScroll={(e) => e.preventDefault()}
+            onTouchMove={(e) => e.preventDefault()}
+          >
+            {trendingMovies?.map((movie) => (
+              <TrendingMovieCard
+                key={movie.id}
+                movie={movie}
+                handleScroll={handleScroll}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="px-8 mt-8">
         <h2>Trending</h2>
         <div className="grid grid-cols-5 place-items-center my-8 gap-4">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+          {movies?.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} loading={loading} />
           ))}
         </div>
       </div>
