@@ -1,37 +1,47 @@
 const Footer = () => {
+  const footerLinks = [
+    {
+      text: "© 2021 MovieApp. All rights reserved.",
+    },
+    {
+      text: "Made with ❤️ by ",
+      link: {
+        url: "https://www.twitter.com/dejixice",
+        label: "Ayodeji"
+      }
+    },
+    {
+      text: "Images from ",
+      link: {
+        url: "https://www.themoviedb.org/",
+        label: "OMDB",
+        external: true
+      }
+    }
+  ];
+
   return (
-    <div className="relative z-40  bg-[#0f172a] mt-10 flex items-center justify-around h-20 w-full px-24 ">
-      <div>
-        <p className="text-white text-center py-4">
-          &copy; 2021 MovieApp. All rights reserved.
-        </p>
-      </div>
-      <div>
-        <p className="text-white text-center py-4">
-          Made with ❤️ by{" "}
-          <a
-            href="
-          https://www.twitter.com/dejixice"
-            className="text-blue-500"
-          >
-            Ayodeji
-          </a>
-        </p>
-      </div>
-      <div>
-        <p className="text-white text-center py-4">
-          Images from{" "}
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://www.themoviedb.org/"
-            className="text-blue-500"
-          >
-            OMDB
-          </a>
-        </p>
-      </div>
-    </div>
+    <footer className="relative bottom-0 bg flex items-center justify-around w-full px-24">
+      {footerLinks.map((item, index) => (
+        <div key={index}>
+          <p className="text-white text-center py-4">
+            {item.text}
+            {item.link && (
+              <a
+                href={item.link.url}
+                className="text-blue-500"
+                {...(item.link.external && {
+                  target: "_blank",
+                  rel: "noreferrer"
+                })}
+              >
+                {item.link.label}
+              </a>
+            )}
+          </p>
+        </div>
+      ))}
+    </footer>
   );
 };
 
