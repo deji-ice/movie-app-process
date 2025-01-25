@@ -37,7 +37,7 @@ const MovieDetails = () => {
       <div className="relative items-center w-full">
         {/* Backdrop Image Placeholder */}
         {loading || !imageLoaded ? (
-          <div className="w-screen absolute top-0 h-128 bg-gray-700 animate-pulse"></div>
+          <div className="w-screen absolute top-0 max-h-screen max-w-full bg-gray-700 animate-pulse"></div>
         ) : null}
 
         {/* Backdrop Image */}
