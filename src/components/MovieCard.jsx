@@ -37,7 +37,7 @@ const MovieCard = ({ movie, loading }) => {
               loading="lazy"
             />
             <p
-              className={`font-semibold absolute border text-xs right-1 bottom-1 bg-black/60 rounded-full p-2 ${
+              className={`font-semibold font-source absolute border text-xs right-1 bottom-1 bg-black/60 rounded-full p-2 ${
                 (movie?.vote_average || 0) >= 7
                   ? "border-green-600"
                   : (movie?.vote_average || 0) >= 5

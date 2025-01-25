@@ -16,7 +16,7 @@ const Recommendations = ({ id, tvPath }) => {
           tvPath ? "tv" : "movie"
         }/${id}/recommendations?language=en-US`; // fetch recommendations based on the movie or tv show id
         const response = await axios.get(url, options);
-        console.log(response.data.results);
+       
         setRecommendations(response.data.results); // set the recommendations to the response data
       } catch (error) {
         console.error(error);
@@ -27,7 +27,7 @@ const Recommendations = ({ id, tvPath }) => {
   }, [tvPath, id]);
 
   return (
-    <div className="bg-slate-800/60  w-screen p-14 ">
+    <div className="bg-slate-800/30  w-screen p-14 ">
       <h2 className="text-2xl font-oswald font-semibold">Recommended Watches</h2>
 
       <div className="grid grid-cols-5 mt-10 place-items-center gap-4 ">

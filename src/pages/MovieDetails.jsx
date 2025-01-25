@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { options } from "../services/omdbApi";
 import { FaPlay, FaPlayCircle, FaYoutube } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
@@ -23,7 +23,6 @@ const MovieDetails = () => {
       try {
         const response = await axios.get(url, options);
         setMovie(response?.data);
-        console.log(response?.data);
       } catch (error) {
         console.error(error);
       }
@@ -109,10 +108,10 @@ const MovieDetails = () => {
                     {movie?.title || movie?.name}
                   </h2>
                   <span className="flex items-center gap-3 font-oswald">
-                    <button className="border border-black flex items-center gap-2 px-2 py-1 rounded transition-transform transform hover:scale-105">
+                    <Link target="_blank" to={movie?.homepage} className="border border-black flex items-center gap-2 px-2 py-1 rounded transition-transform transform hover:scale-105">
                       <FaYoutube />
                       Trailer
-                    </button>
+                    </Link>
                     <button className="font-semibold px-2 py-1 rounded border border-black transition-transform transform hover:scale-105">
                       HD
                     </button>

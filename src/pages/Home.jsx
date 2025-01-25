@@ -23,7 +23,7 @@ const Home = () => {
       setTrendingLoading(true);
       try {
         const response = await axios.get(trendingMoviesUrl, options);
-        console.log(response.data.results);
+
         setTrendingMovies(response.data.results.slice(0, 5));
       } catch (error) {
         console.error(error);
@@ -34,7 +34,6 @@ const Home = () => {
       setLoading(true);
       try {
         const response = await axios.get(moviesUrl, options);
-        console.log(response.data.results);
         setMovies(response.data.results);
       } catch (error) {
         console.error(error);

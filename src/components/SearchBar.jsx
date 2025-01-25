@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { options } from "../services/omdbApi";
+import { FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -8,20 +10,24 @@ const SearchBar = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
-    setLoading(true);
-    if (searchTerm === "") {
+    if (searchTerm.trim() === "") {
       setSearchResults([]);
       setLoading(false);
       return;
     }
+
+    setLoading(true);
+    const url = `https://api.themoviedb.org/3/search/multi?query=${encodeURIComponent(
+      searchTerm
+    )}&include_adult=false&language=en-US&page=1`;
+
     try {
-      const response = await axios.get(
-        `http://www.omdbapi.com/?apiKey=${
-          import.meta.env.VITE_OMDB_API_KEY
-        }&s=${searchTerm}`
-      );
-      setSearchResults(response.data.Search);
-    } catch {
+      const response = await axios.get(url, options);
+      setSearchResults(response.data.results);
+    } catch (error) {
+      console.error(error);
+      setSearchResults([]);
+    } finally {
       setLoading(false);
     }
   };
@@ -31,7 +37,11 @@ const SearchBar = () => {
   };
 
   useEffect(() => {
-    handleSearch();
+    const delayDebounceFn = setTimeout(() => {
+      handleSearch();
+    }, 500); // Debounce by 500ms
+
+    return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
 
   return (
@@ -43,37 +53,51 @@ const SearchBar = () => {
         className="w-full px-4 py-2 rounded-lg border bg-gray-800/10 placeholder:text-white text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <button className="absolute right-3 top-2">
-        <svg
-          className="w-6 h-6 text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
+        <FaSearch className="w-6 h-6 text-white" />
       </button>
 
-      {loading && (
-        <div className="bg-slate-300 absolute w-full text-black flex flex-col gap-2 p-3 ">
-          {searchResults?.map((movie) => (
-            <Link
-              onClick={() => setSearchResults([])}
-              to={`/movie/${movie.imdbID}`}
-              key={movie.imdbID}
-              className="flex gap-4 items-center"
-            >
-              <img src={movie.Poster} alt="" className="h-14 object-cover" />
-              <div className=" flex items-center gap-4">
-                <h2>{movie.Title}</h2>
-                <p>{movie.Year}</p>
-              </div>
-            </Link>
-          ))}
+      {(loading || searchResults.length > 0) && (
+        <div className="bg-slate-300 absolute w-full text-black flex flex-col gap-2 p-3 mt-1 rounded-lg max-h-60 overflow-y-auto">
+          {loading ? (
+            <div className="text-center text-slate-900">Loading...</div>
+          ) : (
+            searchResults.map((movie) => (
+              <Link
+                onClick={() => setSearchResults([])}
+                to={
+                  !movie
+                    ? "/"
+                    : movie.media_type === "movie"
+                    ? `/movie/${movie.id}`
+                    : `/tv/${movie.id}`
+                }
+                key={movie.id}
+                className="flex gap-4 items-center hover:bg-gray-400/50 p-2 rounded-md"
+              >
+                <img
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                      : "https://via.placeholder.com/50x75?text=No+Image"
+                  }
+                  alt={movie.title || movie.name}
+                  className="h-14 w-10 object-cover rounded"
+                />
+                <div className="flex flex-col">
+                  <h2 className="text-sm">
+                    {movie.title || movie.name || "Untitled"}
+                  </h2>
+                  <p className="text-xs text-gray-700">
+                    {movie.media_type === "movie"
+                      ? new Date(movie.release_date || Date.now()).getFullYear()
+                      : new Date(
+                          movie.first_air_date || Date.now()
+                        ).getFullYear()}
+                  </p>
+                </div>
+              </Link>
+            ))
+          )}
         </div>
       )}
     </div>

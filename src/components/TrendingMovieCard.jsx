@@ -1,19 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
-import {
-  FaPlay,
-  FaYoutube,
-} from "react-icons/fa6";
+import { useState } from "react";
+import { FaPlay, FaYoutube } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
-const TrendingMovieCard = ({
-  movie,
-  loading,
-
-}) => {
+const TrendingMovieCard = ({ movie, loading }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  
-  // console.log(movie)
+
   return (
     <div className="snap-center relative w-[70rem]  mr-14 text-[#e2e2e2] ">
       {loading || !imageLoaded ? (
@@ -50,18 +43,22 @@ const TrendingMovieCard = ({
           </div>
 
           <div className="mt-4 flex gap-4 items-center *:rounded-2xl *:py-1 *:px-3 ">
-            <button className="bg-white  text-black flex items-center gap-2 ">
+            <Link
+              to={!movie ? "/" : `/movie/${movie?.id}`}
+              className="bg-white  text-black flex items-center gap-2 "
+            >
               <FaPlay />
               Watch
-            </button>
-            <button className="bg-gray-500/20 flex items-center gap-2 border border-white ">
+            </Link>
+            <button 
+              className="bg-gray-500/20 flex items-center gap-2 border border-white "
+            >
               <FaYoutube />
-              Trailer
+              Trabutton
             </button>
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
