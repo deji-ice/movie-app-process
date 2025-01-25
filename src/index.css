@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 .bg {
   background: rgba(91, 90, 90, 0.55);
   backdrop-filter: blur(4.5px);
   -webkit-backdrop-filter: blur(2.5px);
 }
+
 body {
   margin: 0;
   background: linear-gradient(135deg, #3d3c3c, #0e0c0c);

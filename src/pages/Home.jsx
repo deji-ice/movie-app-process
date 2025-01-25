@@ -4,7 +4,6 @@ import TrendingMovieCardSkeleton from "../components/TrendingMovieCardSkeleton";
 import { options } from "../services/omdbApi";
 import MovieCard from "../components/MovieCard";
 import axios from "axios";
-import Skeleton from "react-loading-skeleton";
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -86,7 +85,7 @@ const Home = () => {
       </div>
 
       <div className="px-8 mt-8">
-        <h2>Trending</h2>
+        <h2 className="font-oswald text-2xl">Trending</h2>
         <div className="grid grid-cols-5 place-items-center my-8 gap-4">
           {movies?.map((movie) => (
             <MovieCard key={movie.id} movie={movie} loading={loading} />

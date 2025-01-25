@@ -35,7 +35,7 @@ const SearchBar = () => {
   }, [searchTerm]);
 
   return (
-    <div className="relative">
+    <div className="relative font-source">
       <input
         onChange={handleChange}
         type="text"
