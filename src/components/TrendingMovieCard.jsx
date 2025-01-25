@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import {
   FaPlay,
   FaYoutube,
@@ -6,17 +7,25 @@ import {
   FaChevronRight,
 } from "react-icons/fa6";
 
-const TrendingMovieCard = ({ movie, handleScroll }) => {
-  console.log(movie)
+const TrendingMovieCard = ({ movie, handleScroll, loading }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  // console.log(movie)
   return (
     <div className=" relative w-[70rem]  text-[#e2e2e2]  ">
+      {loading || !imageLoaded ? (
+        <div className="w-screen absolute top-0 max-h-screen max-w-full bg-gray-700 animate-pulse"></div>
+      ) : null}
       <button className=" absolute top-4 left-5 px-4 py-1 rounded-2xl bg-slate-200/20">
         Now Trending 🔥
       </button>
       <img
         src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-        className="w-full object-cover rounded-3xl h-[30rem]"
-        alt=""
+        className={`w-full object-cover rounded-3xl h-[30rem] ${
+          imageLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        alt={movie.title || movie.name || "Movie backdrop"}
+        onLoad={() => setImageLoaded(true)}
+        loading="lazy"
       />
 
       <div className="absolute bottom-0 w-full p-4 flex items-end justify-between">
