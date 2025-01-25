@@ -57,7 +57,7 @@ const SearchBar = () => {
       </button>
 
       {(loading || searchResults.length > 0) && (
-        <div className="bg-slate-300 absolute w-full text-black flex flex-col gap-2 p-3 mt-1 rounded-lg max-h-60 overflow-y-auto">
+        <div className="bg-slate-300 absolute w-full text-black flex flex-col gap-2 p-3 mt-1 rounded-lg max-h-80 overflow-y-auto">
           {loading ? (
             <div className="text-center text-slate-900">Loading...</div>
           ) : (
@@ -81,19 +81,26 @@ const SearchBar = () => {
                       : "https://via.placeholder.com/50x75?text=No+Image"
                   }
                   alt={movie.title || movie.name}
-                  className="h-14 w-10 object-cover rounded"
+                  className="h-14 text-xs w-10 object-cover rounded"
                 />
                 <div className="flex flex-col">
-                  <h2 className="text-sm">
+                  <h2 className="text-sm font-oswald tracking-wide">
                     {movie.title || movie.name || "Untitled"}
                   </h2>
-                  <p className="text-xs text-gray-700">
-                    {movie.media_type === "movie"
-                      ? new Date(movie.release_date || Date.now()).getFullYear()
-                      : new Date(
-                          movie.first_air_date || Date.now()
-                        ).getFullYear()}
-                  </p>
+                  <span className="mt-1 flex items-end gap-2 text-xs text-gray-700">
+                    <p>
+                      {movie.media_type === "movie"
+                        ? new Date(
+                            movie.release_date || Date.now()
+                          ).getFullYear()
+                        : new Date(
+                            movie.first_air_date || Date.now()
+                          ).getFullYear()}
+                    </p>
+                    <p className="border rounded px-0.5 p-0 border-black uppercase text-[8px]">
+                      {movie.media_type == "movie" ? "movie" : "tv"}
+                    </p>
+                  </span>
                 </div>
               </Link>
             ))
