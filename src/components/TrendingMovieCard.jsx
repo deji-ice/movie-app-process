@@ -1,17 +1,21 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaPlay,
   FaYoutube,
-  FaChevronLeft,
-  FaChevronRight,
 } from "react-icons/fa6";
 
-const TrendingMovieCard = ({ movie, handleScroll, loading }) => {
+const TrendingMovieCard = ({
+  movie,
+  loading,
+
+}) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  
   // console.log(movie)
   return (
-    <div className=" relative w-[70rem]  text-[#e2e2e2]  ">
+    <div className="snap-center relative w-[70rem]  mr-14 text-[#e2e2e2] ">
       {loading || !imageLoaded ? (
         <div className="w-screen absolute top-0 max-h-screen max-w-full bg-gray-700 animate-pulse"></div>
       ) : null}
@@ -56,16 +60,8 @@ const TrendingMovieCard = ({ movie, handleScroll, loading }) => {
             </button>
           </div>
         </div>
-
-        <div className="flex  items-center gap-3 *:bg-slate-300/40 *:rounded-full *:p-5  *:justify-between">
-          <button onClick={() => handleScroll("left")}>
-            <FaChevronLeft />
-          </button>
-          <button onClick={() => handleScroll("right")}>
-            <FaChevronRight />
-          </button>
-        </div>
       </div>
+      
     </div>
   );
 };
