@@ -31,21 +31,21 @@ const MovieCard = ({ movie, loading }) => {
         >
           <div className="relative">
             <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={movie?.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '/placeholder.jpg'}
               className="h-[17rem] w-full rounded"
-              alt=""
+              alt={movie?.title || movie?.name || 'Movie poster'}
               loading="lazy"
             />
             <p
               className={`font-semibold absolute border text-xs right-1 bottom-1 bg-black/60 rounded-full p-2 ${
-                movie.vote_average >= 7
+                (movie?.vote_average || 0) >= 7
                   ? "border-green-600"
-                  : movie.vote_average >= 5
+                  : (movie?.vote_average || 0) >= 5
                   ? "border-yellow-600"
                   : "border-red-600"
               }`}
             >
-              {movie.vote_average.toFixed(1)}
+              {(movie?.vote_average || 0).toFixed(1)}
             </p>
           </div>
           <div className="flex flex-col gap-1 text-sm">
@@ -54,9 +54,9 @@ const MovieCard = ({ movie, loading }) => {
             </h2>
             <span className="text-sm text-slate-200 font-source flex items-center justify-between gap-2">
               <p>
-                {movie.media_type === "movie"
-                  ? new Date(movie.release_date).getFullYear()
-                  : new Date(movie.first_air_date).getFullYear()}
+                {movie?.media_type === "movie"
+                  ? new Date(movie?.release_date || Date.now()).getFullYear()
+                  : new Date(movie?.first_air_date || Date.now()).getFullYear()}
               </p>
             </span>
           </div>
