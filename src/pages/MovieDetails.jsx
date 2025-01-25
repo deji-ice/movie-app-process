@@ -34,7 +34,7 @@ const MovieDetails = () => {
 
   return (
     <div className="flex flex-col h-full items-center">
-      <div className="relative items-center w-full">
+      <div className="relative items-center  w-full">
         {/* Backdrop Image Placeholder */}
         {loading || !imageLoaded ? (
           <div className="w-screen absolute top-0 max-h-screen max-w-full bg-gray-700 animate-pulse"></div>
@@ -44,7 +44,7 @@ const MovieDetails = () => {
         <img
           src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`} // Changed from 'original' to 'w500' for faster loading
           alt={movie?.title || movie?.name || "Movie backdrop"}
-          className={`w-screen object-cover transition-opacity duration-500 ${
+          className={`w-screen  object-cover transition-opacity duration-500 ${
             imageLoaded ? "opacity-100" : "opacity-0"
           }`}
           loading="lazy"
@@ -63,33 +63,33 @@ const MovieDetails = () => {
             <div className="w-screen h-screen bg-gray-700 animate-pulse"></div>
 
             {/* Details Placeholder */}
-            <div className="flex gap-10 w-[85%] bg-slate-800 p-8 rounded-lg mt-4 absolute top-[30rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="flex gap-10 w-[85%] min-h-[25rem] bg-slate-100 p-8 rounded-lg mt-4 absolute top-[35rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               {/* Poster Placeholder */}
-              <div className="w-56 h-72 bg-gray-600 rounded-xl"></div>
+              <div className="w-56 h-72 bg-gray-200 animate-pulse rounded-xl"></div>
 
               {/* Textual Content Placeholder */}
               <div className="flex flex-col gap-5 flex-1">
-                <div className="w-3/5 h-10 bg-gray-600 mb-4 rounded"></div>
-                <div className="w-1/2 h-5 bg-gray-600 rounded"></div>
+                <div className="w-3/5 h-10 bg-gray-200 mb-4 rounded"></div>
+                <div className="w-1/2 h-5 bg-gray-200 rounded"></div>
                 <div className="space-y-5">
-                  <div className="w-full h-4 bg-gray-600 rounded"></div>
-                  <div className="w-full h-4 bg-gray-600 rounded"></div>
-                  <div className="w-11/12 h-4 bg-gray-600 rounded"></div>
+                  <div className="w-full h-4 bg-gray-200 rounded"></div>
+                  <div className="w-full h-4 bg-gray-200 rounded"></div>
+                  <div className="w-11/12 h-4 bg-gray-200 rounded"></div>
                 </div>
                 <div className="flex gap-5">
-                  <div className="w-1/4 h-5 bg-gray-600 rounded"></div>
-                  <div className="w-1/4 h-5 bg-gray-600 rounded"></div>
-                  <div className="w-1/4 h-5 bg-gray-600 rounded"></div>
+                  <div className="w-1/4 h-5 bg-gray-200 rounded"></div>
+                  <div className="w-1/4 h-5 bg-gray-200 rounded"></div>
+                  <div className="w-1/4 h-5 bg-gray-200 rounded"></div>
                 </div>
               </div>
             </div>
           </>
         ) : (
           /* Details Section */
-          <div className="flex gap-10 w-[85%] text-black p-8 rounded-lg mt-4 absolute top-[35rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md">
+          <div className="flex gap-10 w-[85%] text-black max-h-[30rem] min-h-[25rem] items-center p-8 rounded-lg mt-4 absolute top-[35rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md">
             <img
               src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
-              className="h-64 rounded-xl object-cover"
+              className="h-80 rounded-xl object-cover"
               alt={movie?.title || movie?.name}
               loading="lazy"
             />
@@ -122,7 +122,9 @@ const MovieDetails = () => {
                   </span>
                 </div>
                 <p className="w-full font-source text-gray-700">
-                  {movie?.overview}
+                  {movie?.overview.length > 300 // Limit the overview to 300 characters for better UI
+                    ? movie?.overview.slice(0, 300) + "..."
+                    : movie?.overview}
                 </p>
                 <ul className="grid grid-cols-2 gap-1 font-source">
                   <li>
