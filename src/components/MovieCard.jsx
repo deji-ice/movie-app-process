@@ -27,17 +27,37 @@ const MovieCard = ({ movie, loading }) => {
               ? `/movie/${movie?.id}`
               : `/tv/${movie?.id}`
           }
-          className="flex flex-col gap-4 hover:cursor-pointer  bg-slate-100/10 p-5 rounded-lg"
+          className="flex flex-col gap-2  hover:cursor-pointer  bg-slate-100/10 p-5 rounded-lg"
         >
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            className="h-64 rounded-xl"
-            alt=""
-          />
-          <div className="flex flex-col text-sm">
-            <h2 className=" font-bold">{movie.title || movie.name}</h2>
-            <span className="text-xs text-slate-200">
-              {movie.vote_average} | {movie.release_date || "N/A"}
+          <div className="relative">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              className="h-[17rem] w-full rounded"
+              alt=""
+              loading="lazy"
+            />
+            <p
+              className={`font-semibold absolute border text-xs right-1 bottom-1 bg-black/60 rounded-full p-2 ${
+                movie.vote_average >= 7
+                  ? "border-green-600"
+                  : movie.vote_average >= 5
+                  ? "border-yellow-600"
+                  : "border-red-600"
+              }`}
+            >
+              {movie.vote_average.toFixed(1)}
+            </p>
+          </div>
+          <div className="flex flex-col gap-1 text-sm">
+            <h2 className=" font-bold font-oswald">
+              {movie.title || movie.name}
+            </h2>
+            <span className="text-sm text-slate-200 font-source flex items-center justify-between gap-2">
+              <p>
+                {movie.media_type === "movie"
+                  ? new Date(movie.release_date).getFullYear()
+                  : new Date(movie.first_air_date).getFullYear()}
+              </p>
             </span>
           </div>
         </Link>
