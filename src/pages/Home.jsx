@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import TrendingMovieCard from "../components/TrendingMovieCard";
-import TrendingMovieCardSkeleton from "../components/TrendingMovieCardSkeleton";
 import { options } from "../services/omdbApi";
 import MovieCard from "../components/MovieCard";
 import axios from "axios";
+import { TrendingMovieCardSkeleton } from "../components/Skelentons";
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [trendingLoading, setTrendingLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [trendingLoading, setTrendingLoading] = useState(true);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -76,6 +76,7 @@ const Home = () => {
             {trendingMovies?.map((movie) => (
               <TrendingMovieCard
                 key={movie.id}
+                loading={trendingLoading}
                 movie={movie}
                 handleScroll={handleScroll}
               />
