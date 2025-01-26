@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { options } from "../services/omdbApi";
-import { FaPlay, FaPlayCircle, FaYoutube } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlayCircle } from "react-icons/fa";
 import Recommendations from "../components/Recommendations";
 import { MovieDetailsCardSkelenton } from "../components/Skelentons";
 import MovieDetailsCard from "../components/MovieDetailsCard";
+import SeasonsList from "../components/SeasonsList";
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -64,6 +64,8 @@ const MovieDetails = () => {
           /* Details Section */
           <MovieDetailsCard movie={movie} />
         )}
+
+        {movie?.seasons && <SeasonsList seasons={movie?.seasons} id={id}  />}
 
         {/* Recommendations */}
         {!loading && <Recommendations id={id} tvPath={tvPath} />}
