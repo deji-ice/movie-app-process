@@ -56,7 +56,7 @@ const MovieCard = ({ movie, loading }) => {
               <p>
                 {movie?.media_type === "movie"
                   ? new Date(movie?.release_date || Date.now()).getFullYear()
-                  : new Date(movie?.first_air_date || Date.now()).getFullYear()}
+                  : new Date(movie?.last_air_date || Date.now()).getFullYear()}
               </p>
             </span>
           </div>
