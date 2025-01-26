@@ -14,10 +14,10 @@ const Recommendations = ({ id, tvPath }) => {
       try {
         const url = `https://api.themoviedb.org/3/${
           tvPath ? "tv" : "movie"
-        }/${id}/recommendations?language=en-US`; // fetch recommendations based on the movie or tv show id
+        }/${id}/recommendations?language=en-US&page=1`; // fetch recommendations based on the movie or tv show id
         const response = await axios.get(url, options);
        
-        setRecommendations(response.data.results); // set the recommendations to the response data
+        setRecommendations(response.data.results.slice(0,10)); // set the recommendations to the response data
       } catch (error) {
         console.error(error);
       }
