@@ -3,9 +3,13 @@
 import { FaPlay, FaPlus, FaYoutube } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const MovieDetailsCard = ({ movie }) => {
+const MovieDetailsCard = ({ movie, absolute }) => {
   return (
-    <div className="flex gap-10 w-[85%] text-black max-h-[30rem] min-h-[25rem] items-center p-8 rounded-lg mt-4 absolute top-[35rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md">
+    <div
+      className={`flex gap-10 w-[85%] text-black max-h-[30rem] min-h-[25rem] items-center p-8 rounded-lg mt-4 ${
+        absolute ? "absolute top-[35rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2" : "static"
+      }  bg-white/80 backdrop-blur-md`}
+    >
       <img
         src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
         className="h-80 rounded-xl object-cover"
@@ -18,8 +22,8 @@ const MovieDetailsCard = ({ movie }) => {
           <Link
             to={
               movie?.seasons
-                ? `/watch-tv/${movie.id}`
-                : `/watch-movie/${movie.id}`
+                ? `/watch-tv/${movie?.id}`
+                : `/watch-movie/${movie?.id}`
             }
             className="bg-red-500 font-oswald font-semibold rounded-lg px-3 py-2 capitalize flex items-center gap-2 transition-transform transform hover:scale-105"
           >
