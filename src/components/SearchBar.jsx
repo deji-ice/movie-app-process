@@ -37,6 +37,7 @@ const SearchBar = () => {
   };
 
   useEffect(() => {
+    // Debounce the search term to avoid making too many requests in a short time
     const delayDebounceFn = setTimeout(() => {
       handleSearch();
     }, 500); // Debounce by 500ms

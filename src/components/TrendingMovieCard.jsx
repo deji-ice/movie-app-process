@@ -38,11 +38,11 @@ const TrendingMovieCard = ({ movie, loading }) => {
             ))} */}
           </div>
           <div className="mt-2 flex flex-col items-start gap-3">
-            <h2 className="text-3xl font-bold mt-2">{movie.title}</h2>
-            <p className="text-sm w-[50%]">{movie.overview}</p>
+            <h2 className="text-3xl font-bold mt-2 font-oswald">{movie.title}</h2>
+            <p className="text-sm w-[50%] font-source text-slate-200">{movie.overview}</p>
           </div>
 
-          <div className="mt-4 flex gap-4 items-center *:rounded-2xl *:py-1 *:px-3 ">
+          <div className="mt-4 flex gap-4 items-center *:rounded-2xl font-source *:py-1 *:px-3 ">
             <Link
               to={!movie ? "/" : `/movie/${movie?.id}`}
               className="bg-white  text-black flex items-center gap-2 "
@@ -54,7 +54,7 @@ const TrendingMovieCard = ({ movie, loading }) => {
               className="bg-gray-500/20 flex items-center gap-2 border border-white "
             >
               <FaYoutube />
-              Trabutton
+              Trailer
             </button>
           </div>
         </div>

@@ -29,38 +29,38 @@ const SeasonsList = ({ seasons, id }) => {
     fetchEpisodes();
   }, [id, selectedSeason]);
 
-return (
-    <div className="bg-red-700 flex gap-10 p-10 items-start w-full h-72 z-[200] top-0 ">
-        <div>
-            <select
-                onChange={handleSelect}
-                className="bg-black text-white p-2 rounded"
-                name="seasons"
-                id="seasons"
-                value={selectedSeason}
-            >
-                {seasons.map((season) => (
-                    <option className="" key={season.id} value={season.season_number}>
-                        {season.name}
-                    </option>
-                ))}
-            </select>
+  return (
+    <div className="bg-red-700 flex gap-10 p-10 items-start w-full max-h-96 z-[200] top-0 ">
+      <div>
+        <select
+          onChange={handleSelect}
+          className="bg-black text-white p-2 rounded"
+          name="seasons"
+          id="seasons"
+          value={selectedSeason}
+        >
+          {seasons.map((season) => (
+            <option className="" key={season.id} value={season.season_number}>
+              {season.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      {episodesList && (
+        <div className="bg-blue-700 flex gap-8 p-2  flex-wrap w-full justify-start content-start">
+          {episodesList?.map((episode) => (
+            <EpisodesList
+              key={episode.id}
+              episodes={episode}
+              selectedSeason={selectedSeason}
+              seasons={seasons}
+              id={id}
+            />
+          ))}
         </div>
-        {episodesList && (
-            <div className="bg-blue-700 flex gap-8 p-2  flex-wrap w-full justify-start content-start">
-                {episodesList?.map((episode) => (
-                    <EpisodesList
-                        key={episode.id}
-                        episodes={episode}
-                        selectedSeason={selectedSeason}
-                        seasons={seasons}
-                        id={id}
-                    />
-                ))}
-            </div>
-        )}
+      )}
     </div>
-);
+  );
 };
 
 export default SeasonsList;
