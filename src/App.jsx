@@ -4,7 +4,8 @@ import MovieDetails from "./pages/MovieDetails";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import SideBar from "./components/SideBar";
+// import SideBar from "./components/SideBar";
+import WatchNow from "./pages/WatchNow";
 
 const App = () => {
   return (
@@ -15,6 +16,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
           <Route path="/tv/:id" element={<MovieDetails />} />
+          <Route path="/watch-movie/:id" element={<WatchNow />} />
+          <Route path="/watch-tv/:id" element={<WatchNow />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
