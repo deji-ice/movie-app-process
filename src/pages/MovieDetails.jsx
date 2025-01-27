@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { options } from "../services/omdbApi";
 import { FaPlayCircle } from "react-icons/fa";
 import Recommendations from "../components/Recommendations";
@@ -25,6 +25,7 @@ const MovieDetails = () => {
       try {
         const response = await axios.get(url, options);
         setMovie(response?.data);
+        console.log(response?.data);
       } catch (error) {
         console.error(error);
       }
@@ -54,7 +55,15 @@ const MovieDetails = () => {
 
         {/* Play Circle Button */}
         {!loading && (
-          <FaPlayCircle className="absolute p-4 h-20 w-20 rounded-full top-72 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-900/70 hover:cursor-pointer hover:scale-125 hover:bg-red-700/70 text-5xl" />
+          <Link
+            to={
+              movie?.seasons
+                ? `/watch-tv/${movie.id}`
+                : `/watch-movie/${movie.id}`
+            }
+          >
+            <FaPlayCircle className="absolute p-4 h-20 w-20 rounded-full top-72 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-900/70 hover:cursor-pointer hover:scale-125 hover:bg-red-700/70 text-5xl" />
+          </Link>
         )}
 
         {/* Details Section Placeholder */}
@@ -65,7 +74,7 @@ const MovieDetails = () => {
           <MovieDetailsCard movie={movie} />
         )}
 
-        {movie?.seasons && <SeasonsList seasons={movie?.seasons} id={id}  />}
+        {movie?.seasons && <SeasonsList seasons={movie?.seasons} id={id} />}
 
         {/* Recommendations */}
         {!loading && <Recommendations id={id} tvPath={tvPath} />}
