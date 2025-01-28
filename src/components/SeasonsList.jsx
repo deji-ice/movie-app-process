@@ -4,9 +4,15 @@ import axios from "axios";
 import { options } from "../services/omdbApi";
 
 /* eslint-disable react/prop-types */
-const SeasonsList = ({ seasons, id }) => {
-  const [selectedSeason, setSelectedSeason] = useState(1);
+const SeasonsList = ({
+  seasons,
+  id,
+  selectedSeason,
+  setSelectedSeason,
+  setSelectedEpisode,
+}) => {
   const [episodesList, setEpisodesList] = useState([]);
+
   const [loading, setLoading] = useState(false);
 
   const handleSelect = (e) => {
@@ -15,6 +21,7 @@ const SeasonsList = ({ seasons, id }) => {
 
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/tv/${id}/season/${selectedSeason}?language=en-US`;
+
     const fetchEpisodes = async () => {
       try {
         setLoading(true);
@@ -53,6 +60,7 @@ const SeasonsList = ({ seasons, id }) => {
               key={episode.id}
               episodes={episode}
               selectedSeason={selectedSeason}
+              setSelectedEpisode={setSelectedEpisode}
               seasons={seasons}
               id={id}
             />

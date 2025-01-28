@@ -3,6 +3,7 @@ import MovieDetailsCard from "../components/MovieDetailsCard";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { options } from "../services/omdbApi";
+import SeasonsList from "../components/SeasonsList";
 
 const WatchNow = () => {
   const [movie, setMovie] = useState(null);
@@ -10,6 +11,8 @@ const WatchNow = () => {
   const [embedError, setEmbedError] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const [manifestError, setManifestError] = useState(false);
+  const [selectedSeason, setSelectedSeason] = useState(1);
+  const [selectedEpisode, setSelectedEpisode] = useState(1);
   const isChromiumBased = /chrome|edge/i.test(navigator.userAgent);
 
   const { pathname } = useLocation();
@@ -93,7 +96,9 @@ const WatchNow = () => {
             />
           )}
           <iframe
-            src={`https://vidsrc.to/embed/${tvPath ? "tv" : "movie"}/${id}`}
+            src={`https://vidsrc.to/embed/${tvPath ? "tv" : "movie"}/${id}${
+              tvPath && `/${selectedSeason}/${selectedEpisode}`
+            }`}
             className="absolute inset-0 w-full h-full rounded-xl shadow-2xl"
             // sandbox={
             //   isChromiumBased
@@ -110,6 +115,15 @@ const WatchNow = () => {
         </div>
       )}
 
+      {movie?.seasons && (
+        <SeasonsList
+          seasons={movie?.seasons}
+          id={id}
+          setSelectedEpisode={setSelectedEpisode}
+          setSelectedSeason={setSelectedSeason}
+          selectedSeason={selectedSeason}
+        />
+      )}
       <MovieDetailsCard movie={movie} absolute={false} />
     </div>
   );

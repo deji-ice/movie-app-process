@@ -74,8 +74,6 @@ const MovieDetails = () => {
           <MovieDetailsCard movie={movie} absolute={true} />
         )}
 
-        {movie?.seasons && <SeasonsList seasons={movie?.seasons} id={id} />}
-
         {/* Recommendations */}
         {!loading && <Recommendations id={id} tvPath={tvPath} />}
       </div>
