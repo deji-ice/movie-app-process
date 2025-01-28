@@ -71,7 +71,7 @@ const MovieDetails = () => {
           <MovieDetailsCardSkelenton />
         ) : (
           /* Details Section */
-          <MovieDetailsCard movie={movie} />
+          <MovieDetailsCard movie={movie} absolute={true} />
         )}
 
         {movie?.seasons && <SeasonsList seasons={movie?.seasons} id={id} />}

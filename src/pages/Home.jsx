@@ -93,6 +93,7 @@ const Home = () => {
             })}
           </div>
         )}
+
         <div className="flex top-[32rem] right-20 fixed  items-center gap-3 *:bg-slate-800/70  *:rounded-full *:p-5  *:justify-between">
           <button onClick={() => handleScroll("left")}>
             <FaChevronLeft />
@@ -101,6 +102,7 @@ const Home = () => {
             <FaChevronRight />
           </button>
         </div>
+
         <div className="flex  gap-2  fixed left-[55vw] top-[82vh]  z-50">
           {trendingMovies?.map((movie, index) => (
             <div
