@@ -19,12 +19,14 @@ const MovieDetailsCard = ({ movie, absolute }) => {
   // Fetch cast details when movie ID changes
   useEffect(() => {
     const fetchCast = async () => {
-      const url = ` https://api.themoviedb.org/3/movie/${movie?.id}/credits`;
+      const url = `https://api.themoviedb.org/3/${
+        movie?.seasons ? "tv" : "movie"
+      }/${movie?.id}/credits`;
       try {
         const response = await axios.get(url, options);
         // Limit cast to first 5 members for better UI
         setCast(response.data.cast.slice(0, 5));
-        console.log(response.data.cast.slice(0, 5));
+        console.log(response.data.cast);
       } catch (error) {
         console.error(error);
       }
@@ -32,6 +34,7 @@ const MovieDetailsCard = ({ movie, absolute }) => {
     fetchCast();
   }, [movie?.id]);
 
+  console.log(cast);
   return (
     // Main container with conditional positioning
     <div
@@ -150,17 +153,17 @@ const MovieDetailsCard = ({ movie, absolute }) => {
                     >
                       {actor.name}
                       {index !== cast.length - 1 ? ", " : ""}
+                      {/* Hover effect on cast members names    */}
+                      {hover.index === index && hover.show && (
+                        <span className="bg text-white p-2 flex flex-col items-center justify-center rounded-2xl min-h-24 min-w-40 w-fit font-semibold absolute top-[-6.5rem] transform transition-all duration-300 hover:scale-105 shadow-lg">
+                          <img
+                            className="h-16 w-16 object-cover rounded-full"
+                            src={`https://image.tmdb.org/t/p/original/${actor?.profile_path}`}
+                          />
+                          <p className="">{actor.character}</p>
+                        </span>
+                      )}
                     </span>
-
-                    {hover.index === index && hover.show && (
-                      <span className="bg text-white p-2 flex flex-col items-center justify-center rounded-2xl min-h-24 min-w-40 w-fit font-semibold absolute top-[-6.5rem] left-0 right-0 ">
-                        <img
-                          className="h-16 w-16 object-cover rounded-full"
-                          src={`https://image.tmdb.org/t/p/w500/${actor?.profile_path}`}
-                        />
-                        <p className="">{actor.character}</p>
-                      </span>
-                    )}
                   </div>
                 ))}
               </span>
