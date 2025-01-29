@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { options } from "../services/omdbApi";
+import { options } from "../services/tmdbApi";
 import { FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {
@@ -41,7 +41,7 @@ const SearchBar = () => {
   const handleLinkClick = () => {
     setSearchResults([]);
     setSearchTerm("");
-    if(inputRef.current) {
+    if (inputRef.current) {
       inputRef.current.value = "";
     }
   };
@@ -116,8 +116,12 @@ const SearchBar = () => {
                   <span className="mt-1 flex items-end gap-2 text-xs text-gray-700">
                     <p>
                       {movie.media_type === "movie"
-                        ? new Date(movie.release_date || Date.now()).getFullYear()
-                        : new Date(movie.first_air_date || Date.now()).getFullYear()}
+                        ? new Date(
+                            movie.release_date || Date.now()
+                          ).getFullYear()
+                        : new Date(
+                            movie.first_air_date || Date.now()
+                          ).getFullYear()}
                     </p>
                     <p className="border rounded px-0.5 p-0 border-black uppercase text-[8px]">
                       {movie.media_type == "movie" ? "movie" : "tv"}
