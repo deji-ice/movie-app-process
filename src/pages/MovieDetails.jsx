@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { options } from "../services/omdbApi";
+import { options } from "../services/tmdbApi";
 import { FaPlayCircle } from "react-icons/fa";
 import Recommendations from "../components/Recommendations";
 import { MovieDetailsCardSkelenton } from "../components/Skelentons";
 import MovieDetailsCard from "../components/MovieDetailsCard";
 import SeasonsList from "../components/SeasonsList";
+import { extractSuffixAfterDot } from "../utils/helpers";
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -20,7 +21,7 @@ const MovieDetails = () => {
     const fetchMovieDetails = async () => {
       const url = `https://api.themoviedb.org/3/${
         tvPath ? "tv" : "movie"
-      }/${id}?language=en-US`;
+      }/${extractSuffixAfterDot(id)}?language=en-US`;
       setLoading(true);
       try {
         const response = await axios.get(url, options);
