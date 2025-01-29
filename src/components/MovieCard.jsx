@@ -24,16 +24,20 @@ const MovieCard = ({ movie, loading }) => {
             !movie
               ? "/"
               : movie?.media_type === "movie"
-              ? `/movie/${movie?.id}`
-              : `/tv/${movie?.id}`
+              ? `/movie/${movie?.title}.${movie?.id}`
+              : `/tv/${movie?.name}.${movie?.id}`
           }
           className="flex flex-col gap-2  hover:cursor-pointer  bg-slate-100/10 p-5 rounded-lg"
         >
           <div className="relative">
             <img
-              src={movie?.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '/placeholder.jpg'}
+              src={
+                movie?.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : "/placeholder.jpg"
+              }
               className="h-[17rem] w-full rounded"
-              alt={movie?.title || movie?.name || 'Movie poster'}
+              alt={movie?.title || movie?.name || "Movie poster"}
               loading="lazy"
             />
             <p
