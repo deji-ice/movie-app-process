@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaPlay, FaPlus, FaYoutube } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { options } from "../services/omdbApi";
+import { options } from "../services/tmdbApi";
 
 /**
  * MovieDetailsCard Component - Displays detailed information about a movie or TV show

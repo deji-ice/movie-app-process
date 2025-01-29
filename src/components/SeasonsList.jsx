@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import EpisodesList from "./EpisodesList";
 import axios from "axios";
-import { options } from "../services/omdbApi";
+import { options } from "../services/tmdbApi";
 
 /* eslint-disable react/prop-types */
 const SeasonsList = ({

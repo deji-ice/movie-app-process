@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MovieDetailsCard from "../components/MovieDetailsCard";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
-import { options } from "../services/omdbApi";
+import { options } from "../services/tmdbApi";
 import SeasonsList from "../components/SeasonsList";
 
 const WatchNow = () => {

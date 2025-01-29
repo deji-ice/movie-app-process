@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import TrendingMovieCard from "../components/TrendingMovieCard";
-import { options } from "../services/omdbApi";
+import { options } from "../services/tmdbApi";
 import MovieCard from "../components/MovieCard";
 import axios from "axios";
 import { TrendingMovieCardSkeleton } from "../components/Skelentons";
