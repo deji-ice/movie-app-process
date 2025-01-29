@@ -14,6 +14,7 @@ import { options } from "../services/omdbApi";
 const MovieDetailsCard = ({ movie, absolute }) => {
   // State to store cast members information
   const [cast, setCast] = useState([]);
+  const [hover, setHover] = useState({ index: null, show: false }); // State to handle hover effect on cast members names
 
   // Fetch cast details when movie ID changes
   useEffect(() => {
@@ -133,14 +134,36 @@ const MovieDetailsCard = ({ movie, absolute }) => {
               ))}
             </li>
             {/* Cast members */}
-            <li>
-              <span className="font-semibold font-oswald">Casts:</span>{" "}
-              {cast?.map((actor, index) => (
-                <span key={actor.id} className="cursor-pointer">
-                  {actor.name}
-                  {index !== cast.length - 1 ? ", " : ""}
-                </span>
-              ))}
+            <li className="flex gap-1 relative">
+              <span className="font-semibold font-oswald flex flex-wrap ">
+                Casts:
+              </span>{" "}
+              <span>
+                {cast?.map((actor, index) => (
+                  <div key={actor.id} className="inline">
+                    <span
+                      className="cursor-pointer hover:underline inline-flex mr-1 "
+                      onMouseEnter={() => setHover({ index, show: true })}
+                      onMouseLeave={() =>
+                        setHover({ index: null, show: false })
+                      }
+                    >
+                      {actor.name}
+                      {index !== cast.length - 1 ? ", " : ""}
+                    </span>
+
+                    {hover.index === index && hover.show && (
+                      <span className="bg text-white p-2 flex flex-col items-center justify-center rounded-2xl min-h-24 min-w-40 w-fit font-semibold absolute top-[-6.5rem] left-0 right-0 ">
+                        <img
+                          className="h-16 w-16 object-cover rounded-full"
+                          src={`https://image.tmdb.org/t/p/w500/${actor?.profile_path}`}
+                        />
+                        <p className="">{actor.character}</p>
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </span>
             </li>
             {/* Languages */}
             <li>
