@@ -59,8 +59,8 @@ const MovieDetails = () => {
           <Link
             to={
               movie?.seasons
-                ? `/watch-tv/${movie.id}`
-                : `/watch-movie/${movie.id}`
+                ? `/watch-tv/${movie?.id}`
+                : `/watch-movie/${movie?.id}`
             }
           >
             <FaPlayCircle className="absolute p-4 h-20 w-20 rounded-full top-72 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-900/70 hover:cursor-pointer hover:scale-125 hover:bg-red-700/70 text-5xl" />

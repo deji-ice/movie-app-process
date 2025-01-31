@@ -34,7 +34,7 @@ const MovieDetailsCard = ({ movie, absolute }) => {
     fetchCast();
   }, [movie?.id]);
 
-  console.log(cast);
+  console.log(movie);
   return (
     // Main container with conditional positioning
     <div
@@ -114,7 +114,7 @@ const MovieDetailsCard = ({ movie, absolute }) => {
             {/* Runtime */}
             <li>
               <span className="font-semibold font-oswald">Runtime:</span>{" "}
-              {movie?.runtime} mins
+              {movie?.runtime || movie?.last_episode_to_air.runtime} mins
             </li>
             {/* Genres list */}
             <li>

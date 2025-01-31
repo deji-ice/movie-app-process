@@ -60,7 +60,7 @@ const WatchNow = () => {
   return (
     <div className="h-full mt-24 w-screen flex flex-col items-center justify-center">
       {loading ? (
-        <div className="w-full h-[80vh] md:h-[90vh] px-20 py-8 rounded-lg bg-gray-900 animate-pulse" />
+        <div className="w-full h-[80vh] md:h-[90vh] bg-black aspect-video max-w-7xl px-20 py-8 rounded-lg  " />
       ) : manifestError ? (
         <div className="w-full h-[80vh] md:h-[90vh] px-20 py-8 flex flex-col items-center justify-center gap-4">
           <p className="text-white text-xl font-source text-center">
@@ -88,7 +88,7 @@ const WatchNow = () => {
           </button>
         </div>
       ) : (
-        <div className="relative w-full z-20 aspect-video max-w-7xl mx-auto px-4">
+        <div className="relative w-full z-20  bg-black aspect-video max-w-7xl mx-auto px-4">
           {clickCount < 2 && (
             <div
               className="absolute inset-0 z-30 cursor-pointer"
@@ -97,14 +97,9 @@ const WatchNow = () => {
           )}
           <iframe
             src={`https://vidsrc.to/embed/${tvPath ? "tv" : "movie"}/${id}${
-              tvPath && `/${selectedSeason}/${selectedEpisode}`
+              tvPath ? `/${selectedSeason}/${selectedEpisode}` :""
             }`}
-            className="absolute inset-0 w-full h-full rounded-xl shadow-2xl"
-            // sandbox={
-            //   isChromiumBased
-            //     ? ``
-            //     : `allow-scripts allow-same-origin allow-forms allow-presentation allow-popups allow-popups-to-escape-sandbox allow-modals`
-            // }
+            className="absolute inset-0 w-full h-full bg-transparent rounded-xl shadow-2xl"
             allowFullScreen
             referrerPolicy="no-referrer"
             onError={handleIframeError}

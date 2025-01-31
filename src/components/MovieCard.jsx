@@ -2,6 +2,7 @@
 
 import { Link } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { truncateTitle } from "../utils/helpers";
 
 const MovieCard = ({ movie, loading }) => {
   return (
@@ -27,7 +28,7 @@ const MovieCard = ({ movie, loading }) => {
               ? `/movie/${movie?.title}.${movie?.id}`
               : `/tv/${movie?.name}.${movie?.id}`
           }
-          className="flex flex-col gap-2  hover:cursor-pointer  bg-slate-100/10 p-5 rounded-lg"
+          className="flex flex-col gap-2  hover:cursor-pointer hover:bg-slate-100/20  bg-slate-100/10 p-5 rounded-lg duration-200 ease-in-out transform"
         >
           <div className="relative">
             <img
@@ -54,7 +55,7 @@ const MovieCard = ({ movie, loading }) => {
           </div>
           <div className="flex flex-col gap-1 text-sm">
             <h2 className=" font-bold font-oswald">
-              {movie.title || movie.name}
+              {truncateTitle(movie.title, 25) || truncateTitle(movie.name, 25)}
             </h2>
             <span className="text-sm text-slate-200 font-source flex items-center justify-between gap-2">
               <p>

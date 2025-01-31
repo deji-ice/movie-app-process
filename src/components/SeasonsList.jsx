@@ -37,14 +37,14 @@ const SeasonsList = ({
   }, [id, selectedSeason]);
 
   return (
-    <div className="bg-red-700 flex gap-10 p-10 items-start w-full max-h-96 z-[200] top-0 ">
+    <div className="bg flex gap-10 p-10 items-start w-full h-fit z-[200] top-0 ">
       <div>
         <select
           onChange={handleSelect}
           className="bg-black text-white p-2 rounded"
           name="seasons"
           id="seasons"
-          value={selectedSeason}
+          value={selectedSeason} 
         >
           {seasons.map((season) => (
             <option className="" key={season.id} value={season.season_number}>
@@ -54,7 +54,7 @@ const SeasonsList = ({
         </select>
       </div>
       {episodesList && (
-        <div className="bg-blue-700 flex gap-8 p-2  flex-wrap w-full justify-start content-start">
+        <div className="bg-slate-900/50 rounded-lg flex gap-8 py-7 pl-8  flex-wrap w-full justify-start content-start">
           {episodesList?.map((episode) => (
             <EpisodesList
               key={episode.id}
