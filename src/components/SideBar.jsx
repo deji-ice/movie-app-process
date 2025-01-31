@@ -1,76 +1,85 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { options } from "../services/tmdbApi";
+import { FaPlayCircle } from "react-icons/fa";
 
 const SideBar = () => {
-  const [latestMovies, setLatestMovies] = useState([]);
   const [latestTvShows, setLatestTvShows] = useState([]);
+  const [tvGenresMap, setTvGenresMap] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLatestMovies = async () => {
+    const fetchData = async () => {
       try {
-        const url = "https://api.themoviedb.org/3/movie/latest";
-        const response = await axios(url, options);
-        setLatestMovies(response.data.results);
-        console.log(response.data);
-        // Fetch the latest movies
-      } catch (error) {
-        console.error(error);
+        // Fetch TV genres (returns array of objects { id, name })
+        const genreRes = await axios.get(
+          "https://api.themoviedb.org/3/genre/tv/list?language=en-US",
+          options
+        );
+        // Create a lookup map { genreId: genreName }
+        const genresObj = genreRes.data.genres.reduce((acc, g) => {
+          acc[g.id] = g.name;
+          return acc;
+        }, {});
+        setTvGenresMap(genresObj);
+
+        // Fetch TV shows airing today (returns array of shows with genre_ids)
+        const showsRes = await axios.get(
+          "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1",
+          options
+        );
+        setLatestTvShows(showsRes.data.results);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
-
-    const fetchLatestTvShows = async () => {
-      try {
-        const url =
-          "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1";
-        const response = await axios(url, options);
-        setLatestTvShows(response.data.results);
-        console.log(response.data.results);
-        // Fetch the latest TV shows
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchLatestMovies();
-    fetchLatestTvShows();
+    fetchData();
   }, []);
-  return (
-    <aside className=" items-center bg  rounded-lg h-[43rem] hidden lg:flex flex-col mt-[7rem] mb-2 py-5 w-full sticky top-0  bg-[#1a1a1a] p-1  ">
-      {/* <h2 className="font-oswald text-2xl tracking-wider text-center">
-        Latest
-      </h2> */}
 
+  return (
+    <aside className="items-center bg rounded-lg h-[43rem] hidden lg:flex flex-col mt-[7rem] mb-2 py-5 w-full max-w-64 sticky top-0 p-1">
       <h4 className="flex self-start pl-5 font-source">
         Shows Airing Today 🔥
       </h4>
-      <div className="overflow-y-auto flex flex-col w-full items-center gap-4 p-2 mt-3">
-        {latestTvShows?.map((show) => (
-          <div
-            key={show.id}
-            className="relative w-full bg-red-900 rounded-2xl hover:cursor-pointer"
-          >
-            <img
-              src={`https://image.tmdb.org/t/p/original${show.poster_path}`}
-              alt={show.name}
-              className="w-full h-36 object-cover rounded-lg"
-            />
-            <div className="bg flex items-center justify-between absolute bottom-0 rounded-b-lg max-h-20 h-10 w-full p-2 ">
-              <p className="text-xs font-source font-semibold ">{show.name}</p>
-              <p
-                className={`font-semibold font-source w-fit h-fit border text-xs right-1 top-0 bg-black/60 rounded-full p-2 ${
-                  (show?.vote_average || 0) >= 7
-                    ? "border-green-600"
-                    : (show?.vote_average || 0) >= 5
-                    ? "border-yellow-600"
-                    : "border-red-600"
-                }`}
-              >
-                {(show?.vote_average || 0).toFixed(1)}
-              </p>
+      <div className="overflow-y-auto scrollbar scroll-smooth flex flex-col w-full items-center gap-4 p-5 mt-3">
+        {loading ? (
+          <p className="text-white">Loading...</p>
+        ) : (
+          latestTvShows.map((show) => (
+            <div
+              key={show.id}
+              className="relative w-full rounded-2xl hover:cursor-pointer"
+            >
+              {/* Display genre names from tvGenresMap */}
+              <div className="flex flex-wrap gap-1 absolute left-1 top-1">
+                {show.genre_ids?.map((id) => (
+                  <span
+                    key={id}
+                    className="text-[10px] bg rounded-md px-1 py-0.5 "
+                  >
+                    {tvGenresMap[id]}
+                  </span>
+                ))}
+              </div>
+              <img
+                src={`https://image.tmdb.org/t/p/original${show.backdrop_path}`}
+                alt={show.name}
+                loading="lazy"
+                className="w-full h-36 object-cover object-top rounded-lg"
+              />
+              <div className="bg-slate-900/80 flex items-center justify-between absolute bottom-0 rounded-b-lg max-h-20 h-10 w-full py-3 px-4">
+                <div>
+                  <p className="text-xs font-source font-semibold max-w-40">
+                    {show.name}
+                  </p>
+                </div>
+                <FaPlayCircle className="text-2xl hover:cursor-pointer" />
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </aside>
   );
