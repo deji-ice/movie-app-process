@@ -57,7 +57,7 @@ const SideBar = () => {
                 {show.genre_ids?.map((id) => (
                   <span
                     key={id}
-                    className="text-[10px] bg rounded-md px-1 py-0.5 "
+                    className="text-[10px] font-source bg rounded-md px-1 py-0.5 "
                   >
                     {tvGenresMap[id]}
                   </span>
@@ -69,7 +69,7 @@ const SideBar = () => {
                 loading="lazy"
                 className="w-full h-36 object-cover object-top rounded-lg"
               />
-              <div className="bg-slate-900/80 flex items-center justify-between absolute bottom-0 rounded-b-lg max-h-20 h-10 w-full py-3 px-4">
+              <div className="bg flex items-center justify-between absolute bottom-0 rounded-b-lg max-h-20 h-10 w-full py-3 px-4">
                 <div>
                   <p className="text-xs font-source font-semibold max-w-40">
                     {show.name}
