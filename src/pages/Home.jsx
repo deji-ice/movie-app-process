@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import TrendingMovieCard from "../components/TrendingMovieCard";
 import { options } from "../services/tmdbApi";
 import MovieCard from "../components/MovieCard";
 import axios from "axios";
-import { NowPlayingInTheaterCardSkeleton, TrendingMovieCardSkeleton } from "../components/Skelentons";
+import { NowPlayingInTheaterCardSkeleton } from "../components/Skelentons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import NowPlayingInTheaterCard from "../components/TrendingMovieCard";
 
@@ -75,7 +74,7 @@ const Home = () => {
     });
   };
   return (
-    <div className="relative overflow-hidden  ml-60 mt-20">
+    <div className="overflow-hidden  ml-10 mt-20">
       <div
         ref={nowPlayingInTheaterRef}
         className="w-full relative overflow-x-hidden  mt-5"
