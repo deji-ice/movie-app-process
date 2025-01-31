@@ -18,3 +18,21 @@ body {
   background-attachment: fixed;
   background-image: url("https://images.unsplash.com/photo-1724443701961-0080a770f385?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fHx8");
 }
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    @apply bg-black/20 rounded-[10px];
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white/30 rounded-[10px];
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/50;
+  }
+}

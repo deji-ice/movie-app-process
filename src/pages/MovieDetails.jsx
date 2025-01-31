@@ -6,7 +6,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import Recommendations from "../components/Recommendations";
 import { MovieDetailsCardSkelenton } from "../components/Skelentons";
 import MovieDetailsCard from "../components/MovieDetailsCard";
-import SeasonsList from "../components/SeasonsList";
+// import SeasonsList from "../components/SeasonsList";
 import { extractSuffixAfterDot } from "../utils/helpers";
 
 const MovieDetails = () => {

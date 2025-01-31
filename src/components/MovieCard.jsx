@@ -37,7 +37,7 @@ const MovieCard = ({ movie, loading }) => {
                   ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                   : "/placeholder.jpg"
               }
-              className="h-[17rem] w-full rounded"
+              className="h-[15rem] w-full rounded"
               alt={movie?.title || movie?.name || "Movie poster"}
               loading="lazy"
             />
