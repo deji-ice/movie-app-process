@@ -2,7 +2,7 @@ export const Skelentons = () => {
   return <div>Skelentons</div>;
 };
 
-export const TrendingMovieCardSkeleton = () => {
+export const NowPlayingInTheaterCardSkeleton = () => {
   return (
     <div className="relative flex h-[30rem] rounded-xl animate-pulse bg-gray-100 w-[70rem] text-[#e2e2e2]">
       {/* <div className="absolute top-4 left-5 px-4 py-1 rounded-2xl bg-slate-200/20">

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaPlay, FaYoutube } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const TrendingMovieCard = ({ movie, loading }) => {
+const NowPlayingInTheaterCard = ({ movie, loading }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
 
@@ -12,8 +12,8 @@ const TrendingMovieCard = ({ movie, loading }) => {
       {loading || !imageLoaded ? (
         <div className="w-screen absolute top-0 max-h-screen max-w-full bg-gray-700 animate-pulse"></div>
       ) : null}
-      <button className=" absolute top-4 left-5 px-4 py-1 rounded-2xl bg-slate-200/20">
-        Now Trending 🔥
+      <button className=" absolute top-4 left-5 px-4 py-1 rounded-2xl bg-slate-200/40 text-gray-900 font-source">
+        Playing In Theaters 🔥
       </button>
       <img
         src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
@@ -63,4 +63,4 @@ const TrendingMovieCard = ({ movie, loading }) => {
   );
 };
 
-export default TrendingMovieCard;
+export default NowPlayingInTheaterCard;
