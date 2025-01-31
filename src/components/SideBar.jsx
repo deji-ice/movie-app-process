@@ -8,6 +8,7 @@ const SideBar = () => {
   const [tvGenresMap, setTvGenresMap] = useState({});
   const [loading, setLoading] = useState(true);
 
+  //TODO: ON HOVER, show the overview of the series, let it slide up and cover like 50% of the image
   useEffect(() => {
     const fetchData = async () => {
       try {
