@@ -14,13 +14,13 @@ const App = () => {
   const hideSideBar =
     pathname.includes("watch-movie") || pathname.includes("watch-tv");
 
-  useEffect(() => {
-    if (hideSideBar) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [hideSideBar]);
+  // useEffect(() => {
+  //   if (hideSideBar) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "auto";
+  //   }
+  // }, [hideSideBar]);
 
   return (
     <div className="text-[#e2e2e2] bg h-full flex flex-col m-0 ">

@@ -36,18 +36,18 @@ const MovieDetails = () => {
   }, [id, tvPath]);
 
   return (
-    <div className="flex flex-col h-full items-center">
-      <div className="relative items-center  w-full">
+ <div className="flex flex-col h-full items-center w-[80%]">
+      <div className="relative w-full max-w-7xl px-4">
         {/* Backdrop Image Placeholder */}
         {loading || !imageLoaded ? (
-          <div className="w-screen absolute top-0 max-h-screen max-w-full bg-gray-700 animate-pulse"></div>
+          <div className="w-full aspect-video bg-gray-700 animate-pulse rounded-lg"></div>
         ) : null}
 
         {/* Backdrop Image */}
         <img
-          src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`} // Changed from 'original' to 'w500' for faster loading
+          src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
           alt={movie?.title || movie?.name || "Movie backdrop"}
-          className={`w-screen  object-cover transition-opacity duration-500 ${
+          className={`w-full aspect-video object-cover rounded-lg transition-opacity duration-500 ${
             imageLoaded ? "opacity-100" : "opacity-0"
           }`}
           loading="lazy"
@@ -57,26 +57,26 @@ const MovieDetails = () => {
         {/* Play Circle Button */}
         {!loading && (
           <Link
-            to={
-              movie?.seasons
-                ? `/watch-tv/${movie?.id}`
-                : `/watch-movie/${movie?.id}`
-            }
+            to={movie?.seasons ? `/watch-tv/${movie?.id}` : `/watch-movie/${movie?.id}`}
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           >
-            <FaPlayCircle className="absolute p-4 h-20 w-20 rounded-full top-72 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-900/70 hover:cursor-pointer hover:scale-125 hover:bg-red-700/70 text-5xl" />
+            <FaPlayCircle className="h-20 w-20 p-4 rounded-full bg-red-900/70 hover:scale-125 hover:bg-red-700/70 transition-all duration-300" />
           </Link>
         )}
 
-        {/* Details Section Placeholder */}
+        {/* Details Section */}
         {loading ? (
           <MovieDetailsCardSkelenton />
         ) : (
-          /* Details Section */
           <MovieDetailsCard movie={movie} absolute={true} />
         )}
 
         {/* Recommendations */}
-        {!loading && <Recommendations id={id} tvPath={tvPath} />}
+        {!loading && (
+          <div className="mt-8">
+            <Recommendations id={id} tvPath={tvPath} />
+          </div>
+        )}
       </div>
     </div>
   );
